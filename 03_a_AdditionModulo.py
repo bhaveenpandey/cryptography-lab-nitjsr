@@ -1,9 +1,7 @@
-# Author: Devashish Roy, Roll No: 2024PGCSIS08
-# Assignment No: 03
+# Roll No: 2025PGCSIS18
 # Polynomial arithmetic under GF(2P)
-# a) Addition Modulo
-# b) Multiplication Modulo
-# c) Multiplication Modulo (computational efficient approach)
+# Addition Modulo
+
 
 # Addition Modulo
 def additionModulo(p1, p2):
