@@ -1,8 +1,7 @@
 #2025PGCSIS18
 #DES_ALGORITHM
 
-
-
+#CODE
 IP = [58,50,42,34,26,18,10,2,
       60,52,44,36,28,20,12,4,
       62,54,46,38,30,22,14,6,
@@ -190,12 +189,53 @@ def decrypt(data: bytes, key8: bytes):
         out += des_block(data[i:i+8], subkeys, encrypt=False)
     return unpad(bytes(out))
 
-# --- example usage ---
+# --- user interaction ---
 if __name__ == "__main__":
-    key = b"8bytekey"  # 8 bytes (56-bit + parity bits)
-    pt = b"Hello DES!"
-    ct = encrypt(pt, key)
-    pt2 = decrypt(ct, key)
-    print("Plain:", pt)
-    print("Cipher (hex):", ct.hex())
-    print("Decrypted:", pt2)
+    print("=== DES Encryption/Decryption ===")
+    mode = input("Choose mode (E = Encrypt, D = Decrypt): ").strip().upper()
+    key_input = input("Enter an 8-character key: ").encode("utf-8")
+    if len(key_input) != 8:
+        raise ValueError("Key must be exactly 8 characters (8 bytes).")
+
+    if mode == "E":
+        plaintext = input("Enter plaintext: ").encode("utf-8")
+        ciphertext = encrypt(plaintext, key_input)
+        print("\nCiphertext (hex):", ciphertext.hex())
+
+    elif mode == "D":
+        ciphertext_hex = input("Enter ciphertext (hex): ").strip()
+        ciphertext = bytes.fromhex(ciphertext_hex)
+        plaintext = decrypt(ciphertext, key_input)
+        print("\nDecrypted text:", plaintext.decode("utf-8", errors="ignore"))
+
+    else:
+        print("Invalid mode. Please choose E or D.")
+
+
+'''
+--------x------x-------x-------
+
+OUTPUT- 
+=== DES Encryption/Decryption ===
+Choose mode (E = Encrypt, D = Decrypt): E
+Enter an 8-character key: qwerty12
+Enter plaintext: hello
+
+Ciphertext (hex): bdb61e015dfdb8f1
+
+=== Code Execution Successful ===
+
+
+
+
+=== DES Encryption/Decryption ===
+Choose mode (E = Encrypt, D = Decrypt): d
+Enter an 8-character key: qwerty12
+Enter ciphertext (hex): bdb61e015dfdb8f1
+
+Decrypted text: hello
+
+
+--------x-------x------x--------x--
+
+'''
